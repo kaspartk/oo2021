@@ -1,0 +1,68 @@
+package w15;
+
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
+import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+public class LineTests {
+
+    @Test
+    public void testHomogenousLineCanSolve() {
+
+        HomogenousLine line = new HomogenousLine(3d);
+
+        for (int i = -10; i < 10; i++) {
+            assertThat(line.solve(i), is(Matchers.closeTo(3.0 * i, 0.001)));
+        }
+    }
+
+    @Test
+    public void testLineCanSolve() {
+
+        Line line = new Line(3d, -2d);
+
+        for (int i = -10; i < 10; i++) {
+            assertThat(line.solve(i), is(Matchers.closeTo(3 * i - 2d, 0.001)));
+        }
+    }
+
+    @Test
+    public void testHomogenousLineCanSolveArray() {
+
+        HomogenousLine line = new HomogenousLine(3d);
+        
+        double[] x = new double[21];
+        double[] y = new double[21];
+
+        for (int i = 0; i < 21; i++) {
+            x[i] = i - 10d;
+            y[i] = (i - 10) * 3;
+        }
+
+        assertArrayEquals(y, Line.solveArray(line, x), 0.001);
+    }
+
+    @Test
+    public void testLineCanSolveArray() {
+
+        Line line = new Line(3d, -2d);
+
+        double[] x = new double[21];
+        double[] y = new double[21];
+
+        for (int i = 0; i < 21; i++) {
+            x[i] = i - 10d;
+            y[i] = (i - 10) * 3 - 2d;
+        }
+
+        assertArrayEquals(y, Line.solveArray(line, x), 0.001);
+    }
+
+
+
+
+
+}
